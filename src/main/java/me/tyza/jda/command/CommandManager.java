@@ -26,8 +26,6 @@ public class CommandManager {
         this.LOGGER = LOGGER;
         addMessageCommand(new GenerateStatusEmbedCommand(propertiesManager));
         addMessageCommand(new SetUpdatesChannelCommand(propertiesManager));
-        addMessageCommand(new StatusEmbedManualUpdateCommand(propertiesManager));
-        addMessageCommand(new TestCommand());
     }
 
     private void addMessageCommand(IGuildMessageCommand command) {

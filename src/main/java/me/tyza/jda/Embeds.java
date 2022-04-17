@@ -8,6 +8,8 @@ import net.dv8tion.jda.api.entities.MessageEmbed;
 
 import me.tyza.utils.*;
 
+// TODO: Make a method for loading custom Embeds from JSON file.
+// TODO: Make a new class "DynamicEmbed" that manages the edits of an Embed.
 public class Embeds {
     public static net.dv8tion.jda.api.entities.MessageEmbed statusEmbed(ServerStatus serverStatus) {
         String ip = serverStatus.getIp();

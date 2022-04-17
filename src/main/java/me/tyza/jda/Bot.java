@@ -4,7 +4,6 @@ import me.tyza.jda.command.BotListener;
 import me.tyza.jda.command.CommandManager;
 import me.tyza.mod.command.Actions;
 import me.tyza.utils.PropertiesManager;
-import me.tyza.utils.ServerStatus;
 import me.tyza.utils.Utils;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -13,7 +12,6 @@ import org.slf4j.Logger;
 
 import javax.security.auth.login.LoginException;
 import java.io.File;
-import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -27,9 +25,6 @@ public class Bot {
     private BotListener listener;
     private final PropertiesManager propertiesManager;
     private CommandManager commandManager;
-    private TextChannel textChannel;
-    private static MessageEmbed statusEmbed;
-    private static ServerStatus serverStatus;
     private static ScheduledExecutorService scheduler;
 
     public Bot(Logger logger) {
@@ -107,14 +102,6 @@ public class Bot {
                         .findFirst().orElse(null);
 
         return r != null;
-    }
-
-    public ServerStatus getServerStatus() {
-        return serverStatus;
-    }
-
-    public void setServerStatus(ServerStatus serverStatus) {
-        Bot.serverStatus = serverStatus;
     }
 
     public JDA getJda() {

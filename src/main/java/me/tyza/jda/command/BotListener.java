@@ -32,7 +32,6 @@ public class BotListener extends ListenerAdapter implements EventListener {
 
         if(author.isBot() || event.isWebhookMessage()) return;
 
-        String content = message.getContentDisplay();
         String messageRaw = message.getContentRaw();
 
         if(messageRaw.startsWith(Bot.getPrefix())) {

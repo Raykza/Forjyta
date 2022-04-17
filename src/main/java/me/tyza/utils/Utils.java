@@ -121,7 +121,7 @@ public class Utils {
             );
 
         } catch (IOException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         return ping.get();
     }
@@ -205,7 +205,7 @@ public class Utils {
     /* ------------------------------------------------------------------------------------ */
 
     public static String pingToEmoji(long ping, int min, int max) {
-        String emoji = "";
+        String emoji;
 
         if (ping >= max) { emoji = "\uD83D\uDD34"; }
         else if(ping <= min) { emoji = "\uD83D\uDFE2"; }
@@ -231,7 +231,7 @@ public class Utils {
     /* ------------------------------------------------------------------------------------ */
 
     public static int pingToColor(long ping, int min, int max) {
-        int color = 0x000000;
+        int color;
 
         /* #79b15a #f5900c #de2e43 */
 
@@ -259,7 +259,7 @@ public class Utils {
     /* ------------------------------------------------------------------------------------ */
 
     public static String tpsToEmoji(double tps) {
-        String emoji = "";
+        String emoji;
 
         if (tps <= 7) { emoji = "\uD83D\uDD34"; }
         else if(tps >= 15) { emoji = "\uD83D\uDFE2"; }
@@ -269,10 +269,10 @@ public class Utils {
     }
 
     public static String tpsToEmoji(double tps, int min, int max) {
-        String emoji = "";
+        String emoji;
 
-        if (tps <= 7) { emoji = "\uD83D\uDD34"; }
-        else if(tps >= 15) { emoji = "\uD83D\uDFE2"; }
+        if (tps <= min) { emoji = "\uD83D\uDD34"; }
+        else if(tps >= max) { emoji = "\uD83D\uDFE2"; }
         else { emoji = "\uD83D\uDFE1"; }
 
         return emoji;
@@ -292,7 +292,7 @@ public class Utils {
     /* ---------------------------------------------------------------------------------------- */
 
     public static int tpsToColor(double tps) {
-        int color = 0x000000;
+        int color;
 
         /* #79b15a #f5900c #de2e43 */
 
@@ -304,7 +304,7 @@ public class Utils {
     }
 
     public static int tpsToColor(double tps, int min, int max) {
-        int color = 0x000000;
+        int color;
 
         /* #79b15a #f5900c #de2e43 */
 

@@ -11,7 +11,6 @@ import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.MinecraftServer;
 import org.slf4j.Logger;
 
-import java.sql.Time;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
@@ -21,8 +20,7 @@ public class SchedulerCommand {
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(
                 Commands.literal("bsch")
-                        .requires((sender) -> {
-                            return sender.hasPermission(2);}) // Permission
+                        .requires((sender) -> sender.hasPermission(2)) // Permission
                         .then(Commands.literal("stop")
                                 .then(Commands.argument("seconds", HourArgument.hour())
                                         .executes((sender) -> {
@@ -34,18 +32,13 @@ public class SchedulerCommand {
                                             LOGGER.info(Utils.getFormattedCalendar(now));
                                             String fullMessage = "El servidor se va a cerrar a las "+Utils.getFormattedCalendar(now);
 
-                                            // TODOn't: Send warnings to Minecraft's chat, implementing TellrawCommand.
-
-
                                             // TODO: The scheduler on Forjyta.java shouldn't be public and global.
                                             Forjyta.getScheduledShutdown().schedule(() -> {
                                                 sender.getSource().sendSuccess(new TranslatableComponent("commands.stop.stopping"), true);
                                                 server.halt(false); // TODO: Replace with Actions.haltServer()
                                             }, seconds, TimeUnit.SECONDS);
 
-                                            Forjyta.getScheduledShutdown().schedule(() -> {
-                                                Forjyta.getBot().sendToNewsChannel("El servidor se va a cerrar en **5 minutos**", true);
-                                            }, seconds - (5*60), TimeUnit.SECONDS);
+                                            Forjyta.getScheduledShutdown().schedule(() -> Forjyta.getBot().sendToNewsChannel("El servidor se va a cerrar en **5 minutos**", true), seconds - (5*60), TimeUnit.SECONDS);
 
                                             Forjyta.getBot().sendToNewsChannel(
                                                     fullMessage,

@@ -12,12 +12,12 @@ public class PropertiesManager {
 
     public PropertiesManager(Logger logger) {
         LOGGER = logger;
-        propertiesMap = new HashMap<String, String>();
+        propertiesMap = new HashMap<>();
     }
 
     public void createProperties(File propertiesFile) {
         Properties properties = new Properties();
-        OutputStream output = null;
+        OutputStream output;
 
         try {
             output = new FileOutputStream(propertiesFile);
@@ -77,7 +77,7 @@ public class PropertiesManager {
 
     public void save(File propertiesFile) {
         Properties properties = new Properties();
-        OutputStream output = null;
+        OutputStream output;
 
         try {
             output = new FileOutputStream(propertiesFile);

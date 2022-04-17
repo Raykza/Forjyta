@@ -4,22 +4,13 @@ import me.tyza.utils.Utils;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.StringUtil;
 import net.minecraft.world.level.Level;
 import org.apache.commons.lang3.StringUtils;
-
-import java.util.Arrays;
 
 public class SimpleDimension {
     private final double TPS;
     private final String name;
     private final double tickTime;
-
-    public SimpleDimension(String name, double tickTime, double TPS) {
-        this.name = name;
-        this.tickTime = tickTime;
-        this.TPS = TPS;
-    }
 
     public SimpleDimension(ServerLevel level) {
         ResourceKey<Level> dimension = level.dimension();
@@ -44,18 +35,6 @@ public class SimpleDimension {
         name = StringUtils.capitalize(name);
         name = name.replaceAll("_"," ");
         return name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public double getTickTime() {
-        return tickTime;
-    }
-
-    public double getTPS() {
-        return TPS;
     }
 
     public MessageEmbed.Field toEmbedField(boolean inline) {

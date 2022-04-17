@@ -1,6 +1,5 @@
 package me.tyza.mod.event;
 
-import me.tyza.mod.command.TestCommand;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;

@@ -28,16 +28,12 @@ public class Actions {
     }
 
     public static void messagePlayers(PlayerList playerList, String message) {
-        playerList.getPlayers().forEach((player -> {
-            messagePlayer(player, message);
-        }));
+        playerList.getPlayers().forEach((player -> messagePlayer(player, message)));
     }
 
     public static ArrayList<SimpleDimension> getDimensions(MinecraftServer server) {
         ArrayList<SimpleDimension> simpleDimensions = new ArrayList<>();
-        server.getAllLevels().forEach(dimension -> {
-            simpleDimensions.add(new SimpleDimension(dimension));
-        });
+        server.getAllLevels().forEach(dimension -> simpleDimensions.add(new SimpleDimension(dimension)));
 
         return simpleDimensions;
     }
