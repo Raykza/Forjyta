@@ -4,6 +4,7 @@ import me.tyza.jda.command.BotListener;
 import me.tyza.jda.command.CommandManager;
 import me.tyza.mod.command.Actions;
 import me.tyza.utils.PropertiesManager;
+import me.tyza.utils.ServerStatus;
 import me.tyza.utils.Utils;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -40,7 +41,7 @@ public class Bot {
 
             this.commandManager = new CommandManager(LOGGER, this.propertiesManager);
             this.listener = new BotListener(this.commandManager, LOGGER);
-            this.startBot(propertiesManager.getProperty("api"));
+            this.startBot(Utils.decodeBase64(Utils.toUTF(propertiesManager.getProperty("api"))));
         }
     }
 
@@ -72,12 +73,14 @@ public class Bot {
         scheduler = Executors.newScheduledThreadPool(1);
         scheduler.scheduleAtFixedRate(() -> {
             LOGGER.info("Updating server status.");
+
+            ServerStatus ss = Actions.getMinecraftServerStatus().fetchInet();
             // TODO: @editDynamicEmbed
             Embeds.editDynamicEmbed(
                     propertiesManager.getProperty("guild"),
                     propertiesManager.getProperty("embed_channel"),
                     propertiesManager.getProperty("embed"),
-                    Embeds.statusEmbed(Actions.getMinecraftServerStatus()));
+                    Embeds.statusEmbed(ss));
         }, 0,15, TimeUnit.MINUTES);
     }
 

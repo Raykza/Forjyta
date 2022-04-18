@@ -1,21 +1,21 @@
 package me.tyza.utils;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
@@ -130,12 +130,32 @@ public class Utils {
         return getPing("1.1.1.1", 1);
     }
 
+    // TODO: Test this!
+
     public static JsonObject loadsJSON(String json) {
         return (JsonObject) JsonParser.parseString(json);
     }
 
+    public static Object loadJSON(File json) {
+        try {
+            return new Gson().fromJson(Files.newBufferedReader(json.toPath()), Object.class);
+        } catch(IOException exception) { return null; }
+    }
+
     public static String toUTF(String string) {
         return new String(string.getBytes(), StandardCharsets.UTF_8);
+    }
+
+    public static String fromByteArray(byte[] byte_array) {
+        return new String(byte_array, StandardCharsets.UTF_8);
+    }
+
+    public static String encodeBase64(String message) {
+        return Base64.getEncoder().encodeToString(message.getBytes(StandardCharsets.UTF_8));
+    }
+
+    public static String decodeBase64(String encoded) {
+        return Utils.fromByteArray(Base64.getDecoder().decode(encoded));
     }
 
     public static boolean stringContainsItemFromList(String inputStr, String[] items) {
@@ -199,7 +219,7 @@ public class Utils {
     public static String getFormattedCalendar(Calendar now) {
         return  padLeftZeros(now.get(Calendar.HOUR_OF_DAY),2) + ":" +
                 padLeftZeros(now.get(Calendar.MINUTE),2) + ":" +
-                now.get(Calendar.SECOND);
+                padLeftZeros(now.get(Calendar.SECOND),2 );
     }
 
     /* ------------------------------------------------------------------------------------ */
